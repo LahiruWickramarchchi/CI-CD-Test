@@ -10,7 +10,7 @@ export default function HomePage() {
     <main>
       {submitted ? (
         <h2 style={{ textAlign: 'center', marginTop: '3rem' }}>
-          ✅ Thank you for your feedback!
+          ✅ Thank you for your feedback !
         </h2>
       ) : (
         <form
