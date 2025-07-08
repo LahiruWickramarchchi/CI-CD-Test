@@ -1,10 +1,25 @@
-
 'use client';
 
 import { useState } from 'react';
 
 export default function HomePage() {
   const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    setSubmitted(true);
+  };
 
   return (
     <main>
@@ -13,13 +28,7 @@ export default function HomePage() {
           ✅ Thank you for your feedback!
         </h2>
       ) : (
-        <form
-          name="contact"
-          method="POST"
-          data-netlify="true"
-          onSubmit={() => setSubmitted(true)}
-        >
-          <input type="hidden" name="form-name" value="contact" />
+        <form onSubmit={handleSubmit}>
           <h2>Contact Us</h2>
           <label>
             Name:
